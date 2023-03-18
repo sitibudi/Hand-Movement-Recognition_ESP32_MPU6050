@@ -1,7 +1,11 @@
 //=====================================================LIBRARY=======================================================================
 #include "Wire.h"
 #include <MPU6050_light.h>
-
+#include "FS.h"
+#include <SPI.h>
+#include <SD.h>
+#include <stdint.h>
+#define Pins_Arduino_h
 //======================================================DONE=========================================================================
 
 
@@ -9,6 +13,8 @@
 MPU6050 mpu(Wire);
 unsigned long timer = 0;
 
+
+int a; int b;
 //======================================================DONE=========================================================================
 
 //====================================================FUNCTION=======================================================================
@@ -25,7 +31,26 @@ void 6050Setup(){
   // mpu.upsideDownMounting = true; // uncomment this line if the MPU6050 is mounted upside-down
   mpu.calcOffsets(); // gyro and accelero
   Serial.println("Done!\n");
+   
+}
+
+
+void datalog(){
+  File myFile = SD.open("/test.txt", FILE_APPEND);
   
+  // if the file opened okay, write to it:
+  if (myFile) {
+    Serial.print("Writing to test.txt...");
+    myFile.print(String(a));
+    myFile.print("   ");
+    myFile.println(String(b));
+    // close the file:
+    myFile.close();
+    Serial.println("done.");
+  } else {
+    // if the file didn't open, print an error:
+    Serial.println("error opening test.txt");
+  }
 }
 
 //======================================================DONE=========================================================================
@@ -36,7 +61,17 @@ void 6050Setup(){
 // ================================================================
 void setup() {
  Serial.begin(9600);
+  // MPU6050 
   Wire.begin();
+   
+   // SD card module
+    Serial.print("Initializing SD card...");
+
+  if (!SD.begin()) {
+    Serial.println("initialization failed!");
+    return;
+  }
+  Serial.println("initialization done.");
 //  pinMode();
 //  pinMode();
 //  pinMode();
@@ -53,6 +88,9 @@ void setup() {
 
 void loop() {
     mpu.update();
+    a = random(0,11);
+   b = random (20,26);
+  datalog();
     
     if((millis()-timer)>10){ // print data every 10ms
   Serial.print("X : ");
@@ -70,3 +108,5 @@ void loop() {
   }
 
 }
+
+
