@@ -26,7 +26,7 @@ int current1, pre_current1;
 
 
 // Global variable
-
+float Temp;
 
 //======================================================DONE=========================================================================
 
@@ -118,7 +118,7 @@ current1 = millis();
   // Serial.println("");
     
      
-  Serial.print("temp : ");  Serial.print(objectTemp);  Serial.print("|| ");
+  Serial.print("temp : ");  Serial.print(Temp);  Serial.print("|| ");
   Serial.print("beat:"); Serial.print(particleSensor.getIR());  Serial.print("|| ");
   Serial.print("AccelX:"); Serial.print(a.acceleration.x);Serial.print("|");
   Serial.print("AccelY:"); Serial.print(a.acceleration.y);Serial.print("|");
