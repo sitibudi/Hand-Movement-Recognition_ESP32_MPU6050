@@ -255,7 +255,11 @@ current1 = millis();
   // Serial.print("AccelZ:"); Serial.print(a.acceleration.z);Serial.println("|");
   Serial.print(a.acceleration.x);Serial.print(",");
   Serial.print(a.acceleration.y);Serial.print(",");
-  Serial.println(a.acceleration.z);
+  Serial.print(a.acceleration.z);Serial.print(",");
+    
+  Serial.print(g.gyro.x);Serial.print(",");
+  Serial.print(g.gyro.y);Serial.print(",");
+  Serial.println(g.gyro.z);
     pixels.setPixelColor(0, pixels.Color(0, 150, 0));
   pixels.show();
   pre_current = current;
